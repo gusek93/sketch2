@@ -7,6 +7,10 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+ext {
+    mapstructVersion = '1.5.1.Final'
+    querydslVersion = '5.0.0'
+}
 
 configurations {
     compileOnly {
@@ -15,23 +19,41 @@ configurations {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-graphql'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'mysql:mysql-connector-java'
-    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework:spring-webflux'
+    testImplementation 'org.springframework.graphql:spring-graphql-test'
 
-    //graphql
-    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.0.0'
-    implementation 'com.graphql-java-kickstart:playground-spring-boot-starter:11.0.0'
-    testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:11.0.0'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+
+    // mapstruct
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+
+    // querydsl
+    implementation "com.querydsl:querydsl-core:$querydslVersion"
+    implementation "com.querydsl:querydsl-jpa:$querydslVersion"
+    implementation "com.querydsl:querydsl-sql:$querydslVersion"
+    annotationProcessor "com.querydsl:querydsl-apt:$querydslVersion:jpa"
+
+    // datadog log encoder
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.2'
+
+    // lombok
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    // database drivers
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {

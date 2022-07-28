@@ -1,0 +1,11 @@
+type Query {
+    codes: [Code]
+    codesBy(kindId: String!, codeId: String): [Code]
+}
+
+type Code {
+    kindId: String
+    codeId: String
+    value: String
+    isActive: Boolean
+}
