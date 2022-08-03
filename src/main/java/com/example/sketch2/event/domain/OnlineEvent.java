@@ -1,13 +1,11 @@
 package com.example.sketch2.event.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor

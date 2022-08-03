@@ -14,18 +14,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 class CreateEventService implements CreateEventUseCase {
-    private LoadEventGoodsOrderOutputPort loadEventGoodsOrderOutputPort;
-    private CreateEventOutputPort createEventOutputPort;
-
+    private final LoadEventGoodsOrderOutputPort loadEventGoodsOrderOutputPort;
+    private final CreateEventOutputPort createEventOutputPort;
 
     @Override
-    public void create(CreateEventRequest request) {
-        List<EventGoodsOrder> orders = loadEventGoodsOrderOutputPort.loadOrders();
-        List<OnlineEvent> events = getMapToOnlineEvents(request, orders);
-        if (events.isEmpty()) {
-            return;
-        }
-
+    public void create(final CreateEventRequest request) {
+        final List<EventGoodsOrder> orders = loadEventGoodsOrderOutputPort.loadOrders();
+        final List<OnlineEvent> events = getMapToOnlineEvents(request, orders);
+        createEvents(events);
     }
 
     private List<OnlineEvent> getMapToOnlineEvents(final CreateEventRequest request, final List<EventGoodsOrder> orders) {
@@ -43,5 +39,10 @@ class CreateEventService implements CreateEventUseCase {
                 request.getEventEndAt(),
                 request.getEventEndAt()
         );
+    }
+
+    private void createEvents(List<OnlineEvent> events) {
+        if (events.isEmpty()) return;
+        createEventOutputPort.create(events);
     }
 }

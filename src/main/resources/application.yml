@@ -11,7 +11,7 @@ management:
 
 spring:
   application:
-    name: backoffce-api
+    name: sketch2
   profiles:
     active: local
   jpa:
