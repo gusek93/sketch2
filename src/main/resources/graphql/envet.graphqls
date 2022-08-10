@@ -1,0 +1,7 @@
+type Mutation {
+    createEvent(goodsNo: Int, eventEnd: String): MutationResult
+}
+
+type MutationResult {
+    ok: Boolean
+}
