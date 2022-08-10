@@ -23,6 +23,7 @@ class CreateEventServiceTest {
     @Test
     void create() {
         final var request = CreateEventRequest.of(1, "2022-12-25 12:34:56");
+
         sut.create(request);
 
         assertThat(createEventOutPort.create_received_argument).isEqualTo(new OnlineEvent(
