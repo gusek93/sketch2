@@ -12,6 +12,6 @@ class CreateEventRequestTest {
     void of() {
         final var request = CreateEventRequest.of(1, "2022-12-25 12:34:56");
 
-        assertThat(LocalDateTime.of(2022,12,25,34,56));
+        assertThat(request.getEventEndAt()).isEqualTo(LocalDateTime.of(2022, 12, 25, 12, 34, 56));
     }
 }
