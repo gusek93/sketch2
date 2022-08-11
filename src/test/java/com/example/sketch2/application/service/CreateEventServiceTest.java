@@ -1,7 +1,6 @@
 package com.example.sketch2.application.service;
 
 import com.example.sketch2.application.in.CreateEventRequest;
-import com.example.sketch2.application.out.LoadEventGoodsOrderOutPort;
 import com.example.sketch2.domain.OnlineEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CreateEventServiceTest {
     private final LocalDateTime eventEndAt = LocalDateTime.of(2022, 12, 25, 12, 34, 56);
-    private LoadEventGoodsOrderOutPort loadEventGoodsOrderOutPort;
+    private LoadEventGoodsOrderOutPortStub loadEventGoodsOrderOutPort;
     private CreateEventOutPortMock createEventOutPort;
     private CreateEventService sut;
 
