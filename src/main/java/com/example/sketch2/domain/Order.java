@@ -1,5 +1,6 @@
 package com.example.sketch2.domain;
 
+import com.example.sketch2.domain.converter.BooleanToYNConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -133,36 +134,42 @@ public class Order {
     private String orderChargeRate;
 
     @Comment("재발송 여부")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "RESEND_YN", length = 1)
-    private String resendYn;
+    private boolean resend;
 
     @Comment("시스템 미결제 자동 삭제")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "AUTO_DEL_YN", length = 1)
-    private String autoDeleteYn;
+    private boolean autoDelete;
 
     @Comment("자동삭제된 시간")
     @Column(name = "AUTO_DEL_DT")
     private LocalDateTime autoDeletedAt;
 
     @Comment("복구 여부")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "RESTORE_YN", length = 1)
-    private String restoreYn;
+    private boolean restore;
 
     @Comment("복구 시간")
     @Column(name = "RESTORE_DT")
     private LocalDateTime restoredAt;
 
     @Comment("팬클럽담당자 주문여부")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "FANCLUB_YN", length = 1)
-    private String fanclubYn;
+    private boolean orderedByFanClub;
 
     @Comment("할인 여부")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "DISCOUNT_YN", length = 1)
-    private String discountYn;
+    private boolean discounted;
 
     @Comment("신분증 업로드 여부")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "ID_CONFIRM_YN", length = 1)
-    private String idConfirmationYn;
+    private boolean idConfirmation;
 
     @Comment("신분증 할인 총액(원)")
     @Column(name = "ID_DC_TOT_WON_PRICE")

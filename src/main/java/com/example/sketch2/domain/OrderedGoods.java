@@ -1,5 +1,6 @@
 package com.example.sketch2.domain;
 
+import com.example.sketch2.domain.converter.BooleanToYNConverter;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
@@ -162,8 +163,9 @@ public class OrderedGoods {
     private Long fanClubGoodsNo;
 
     @Comment("무료 배송 여부")
+    @Convert(converter = BooleanToYNConverter.class)
     @Column(name = "FREE_SHIPPING_YN", length = 1)
-    private String freeShippingYn;
+    private boolean freeShipping;
 
     @ManyToOne
     @JoinColumn(name = "SELL_NO")
