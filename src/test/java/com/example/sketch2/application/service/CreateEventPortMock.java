@@ -1,11 +1,11 @@
 package com.example.sketch2.application.service;
 
-import com.example.sketch2.application.out.CreateEventOutPort;
+import com.example.sketch2.application.out.CreateEventPort;
 import com.example.sketch2.domain.OnlineEvent;
 
 import java.util.List;
 
-public class CreateEventOutPortMock implements CreateEventOutPort {
+public class CreateEventPortMock implements CreateEventPort {
     public OnlineEvent create_received_argument;
     public List<OnlineEvent> create_received_argument_list;
     public boolean create_called;

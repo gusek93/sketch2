@@ -4,7 +4,7 @@ import com.example.sketch2.domain.OnlineEvent;
 
 import java.util.List;
 
-public interface CreateEventOutPort {
+public interface CreateEventPort {
     void create(OnlineEvent onlineEvent);
 
     void create(List<OnlineEvent> onlineEvents);
