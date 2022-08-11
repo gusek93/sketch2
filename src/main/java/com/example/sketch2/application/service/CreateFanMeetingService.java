@@ -3,7 +3,7 @@ package com.example.sketch2.application.service;
 import com.example.sketch2.application.in.CreateFanMeetingRequest;
 import com.example.sketch2.application.in.CreateFanMeetingUseCase;
 import com.example.sketch2.application.out.CreateFanMeetingPort;
-import com.example.sketch2.application.out.ReadOrderGoodsPort;
+import com.example.sketch2.application.out.ReadOrderProductPort;
 import com.example.sketch2.domain.FanMeeting;
 import com.example.sketch2.domain.OrderStatus;
 import com.example.sketch2.domain.OrderedProduct;
@@ -15,12 +15,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CreateFanMeetingService implements CreateFanMeetingUseCase {
-    private final ReadOrderGoodsPort readOrderGoodsPort;
+    private final ReadOrderProductPort readOrderProductPort;
     private final CreateFanMeetingPort createFanMeetingPort;
 
     @Override
     public void create(final CreateFanMeetingRequest request) {
-        final List<OrderedProduct> goods = readOrderGoodsPort.listBy(request.getGoodsNo());
+        final List<OrderedProduct> goods = readOrderProductPort.listBy(request.getGoodsNo());
         final List<FanMeeting> fanMeetings = mapToFanMeetings(request, goods);
         createEvents(fanMeetings);
     }

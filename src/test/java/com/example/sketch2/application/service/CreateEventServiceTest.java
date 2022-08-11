@@ -4,7 +4,7 @@ import com.example.sketch2.application.in.CreateFanMeetingRequest;
 import com.example.sketch2.domain.FanMeeting;
 import com.example.sketch2.domain.Order;
 import com.example.sketch2.domain.OrderStatus;
-import com.example.sketch2.domain.OrderedGoods;
+import com.example.sketch2.domain.OrderedProduct;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,13 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CreateEventServiceTest {
     private final LocalDateTime eventEndAt = LocalDateTime.of(2022, 12, 25, 12, 34, 56);
-    private ReadOrderGoodsPortStub readOrderedProductPortStub;
+    private ReadOrderProductPortStub readOrderedProductPortStub;
     private CreateFanMeetingPortMock createEventPortMock;
     private CreateFanMeetingService sut;
 
     @BeforeEach
     void setUp() {
-        readOrderedProductPortStub = new ReadOrderGoodsPortStub();
+        readOrderedProductPortStub = new ReadOrderProductPortStub();
         createEventPortMock = new CreateFanMeetingPortMock();
         sut = new CreateFanMeetingService(readOrderedProductPortStub, createEventPortMock);
     }
@@ -50,14 +50,14 @@ class CreateEventServiceTest {
         assertThat(createEventPortMock.create_called).isFalse();
     }
 
-    private List<OrderedGoods> orderedGoodsListStub() {
+    private List<OrderedProduct> orderedGoodsListStub() {
 
         return List.of(createOrderedGoodsStub(100L, OrderStatus.COMPLETED),
                 createOrderedGoodsStub(1002L, OrderStatus.CANCELLED));
     }
 
-    private OrderedGoods createOrderedGoodsStub(final long orderNo, final OrderStatus status) {
-        final var orderedProduct = new OrderedGoods(orderNo, 1L);
+    private OrderedProduct createOrderedGoodsStub(final long orderNo, final OrderStatus status) {
+        final var orderedProduct = new OrderedProduct(orderNo, 1L);
         final Order order = new Order();
         order.setOrderNo(orderNo);
         order.setStatus(status);
