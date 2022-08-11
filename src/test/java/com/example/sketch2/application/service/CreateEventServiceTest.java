@@ -42,13 +42,12 @@ class CreateEventServiceTest {
     @DisplayName("EventGoodsOrder가 없는 경우 createEventOutPOrt를 쓰지 않는다")
     void create_1() {
         final var request = CreateEventRequest.of(1, eventEndAt);
+        loadEventGoodsOrderOutPort.loadOrders_will_return = List.of();
 
         sut.create(request);
 
-        assertThat(createEventOutPort.create_received_argument_list)
-                .isEqualTo(List.of());
+        assertThat(createEventOutPort.create_called).isFalse();
     }
-
 
     private OnlineEvent expected() {
         return new OnlineEvent(

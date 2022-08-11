@@ -9,7 +9,6 @@ import com.example.sketch2.domain.OnlineEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,12 +20,17 @@ public class CreateEventService implements CreateEventUseCase {
     @Override
     public void create(final CreateEventRequest request) {
         final List<EventGoodsOrder> orders = loadEventGoodsOrderOutPort.loadOrders();
-        List<OnlineEvent> onlineEventList = new ArrayList<>();
-        for (final EventGoodsOrder order : orders) {
-            final OnlineEvent event = createEvent(request, order);
-            onlineEventList.add(event);
+        List<OnlineEvent> events = mapToOnlineEvent(request, orders);
+        if (events.isEmpty()) {
+            return;
         }
-        creatEventOutPort.create(onlineEventList);
+        creatEventOutPort.create(events);
+    }
+
+    private List<OnlineEvent> mapToOnlineEvent(final CreateEventRequest request, final List<EventGoodsOrder> orders) {
+        return orders.stream()
+                .map(order -> createEvent(request, order))
+                .toList();
     }
 
     private OnlineEvent createEvent(final CreateEventRequest request, final EventGoodsOrder order) {
