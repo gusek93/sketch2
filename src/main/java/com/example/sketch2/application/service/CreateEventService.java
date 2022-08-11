@@ -8,6 +8,8 @@ import com.example.sketch2.domain.OnlineEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CreateEventService implements CreateEventUseCase {
@@ -16,7 +18,7 @@ public class CreateEventService implements CreateEventUseCase {
 
     @Override
     public void create(final CreateEventRequest request) {
-        creatEventOutPort.create(createOnlineEvent(request));
+        creatEventOutPort.create(List.of(createOnlineEvent(request)));
     }
 
     private OnlineEvent createOnlineEvent(CreateEventRequest request) {
