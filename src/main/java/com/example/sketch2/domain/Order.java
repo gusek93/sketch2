@@ -105,7 +105,7 @@ public class Order {
     @Column(name = "PAYMENT_RETURN", length = 50)
     private String paymentReturnValue;
 
-    @Comment("결제 회신값")
+    @Comment("비고")
     @Column(name = "REMARK", length = 500)
     private String remark;
 
