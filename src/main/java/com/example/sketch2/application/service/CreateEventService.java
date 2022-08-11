@@ -21,9 +21,11 @@ public class CreateEventService implements CreateEventUseCase {
     public void create(final CreateEventRequest request) {
         final List<EventGoodsOrder> orders = loadEventGoodsOrderOutPort.loadOrders();
         List<OnlineEvent> events = mapToOnlineEvent(request, orders);
-        if (events.isEmpty()) {
-            return;
-        }
+        createEvent(events);
+    }
+
+    private void createEvent(List<OnlineEvent> events) {
+        if (events.isEmpty()) return;
         creatEventOutPort.create(events);
     }
 

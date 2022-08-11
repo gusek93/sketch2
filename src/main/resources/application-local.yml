@@ -4,21 +4,23 @@ spring:
       on-profile: local
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: true
-    generate-ddl: true
+    generate-ddl: false
+    database-platform: org.hibernate.dialect.MariaDBDialect
   datasource:
-    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-  sql:
-    init:
-      mode: always
-  output:
-    ansi:
-      enabled: always
-  h2:
-    console:
-      enabled: true
+    hikari:
+      connection-timeout: 1000
+      jdbc-url: jdbc:mariadb:replication://hminter-dev-2022-02-14-cluster-cluster.cluster-cn1xjryhj9xq.ap-northeast-2.rds.amazonaws.com,hminter-dev-2022-02-14-cluster-cluster.cluster-ro-cn1xjryhj9xq.ap-northeast-2.rds.amazonaws.com/hmmall
+      username: hmmall
+      password: gkdlfn12
+      maximum-pool-size: 10
+    sql:
+      init:
+        mode: never
+    output:
+      ansi:
+        enabled: always
 
 logging:
   level:
