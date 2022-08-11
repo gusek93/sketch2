@@ -35,7 +35,7 @@ public class Order {
 
     @Comment("상태 코드 sell.status")
     @Column(name = "STATUS_CD", nullable = false, length = 20)
-    private String statusCode;
+    private OrderStatus status;
 
     @Comment("쿠폰 할인 원화")
     @Column(name = "COUPON_DC_WON_PRICE")

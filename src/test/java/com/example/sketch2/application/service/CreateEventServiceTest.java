@@ -3,6 +3,7 @@ package com.example.sketch2.application.service;
 import com.example.sketch2.application.in.CreateFanMeetingRequest;
 import com.example.sketch2.domain.FanMeeting;
 import com.example.sketch2.domain.Order;
+import com.example.sketch2.domain.OrderStatus;
 import com.example.sketch2.domain.OrderedGoods;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,13 +51,16 @@ class CreateEventServiceTest {
     }
 
     private List<OrderedGoods> orderedGoodsListStub() {
-        return List.of(createOrderedGoodsStub(100L));
+
+        return List.of(createOrderedGoodsStub(100L, OrderStatus.COMPLETED),
+                createOrderedGoodsStub(1002L, OrderStatus.CANCELLED));
     }
 
-    private OrderedGoods createOrderedGoodsStub(final long orderNo) {
+    private OrderedGoods createOrderedGoodsStub(final long orderNo, final OrderStatus status) {
         final var orderedGoods = new OrderedGoods(orderNo, 1L);
         final Order order = new Order();
         order.setOrderNo(orderNo);
+        order.setStatus(status);
         order.setUserNo(1001L);
         orderedGoods.setOrder(order);
         return orderedGoods;

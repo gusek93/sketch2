@@ -5,6 +5,7 @@ import com.example.sketch2.application.in.CreateFanMeetingUseCase;
 import com.example.sketch2.application.out.CreateFanMeetingPort;
 import com.example.sketch2.application.out.ReadOrderGoodsPort;
 import com.example.sketch2.domain.FanMeeting;
+import com.example.sketch2.domain.OrderStatus;
 import com.example.sketch2.domain.OrderedGoods;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,11 @@ public class CreateFanMeetingService implements CreateFanMeetingUseCase {
         createEvents(events);
     }
 
-    private List<FanMeeting> mapToOnlineEvents(final CreateFanMeetingRequest request, final List<OrderedGoods> listOfGoods) {
-        return listOfGoods
+    private List<FanMeeting> mapToOnlineEvents(final CreateFanMeetingRequest request, final List<OrderedGoods> products) {
+        return products
                 .stream()
-                .map(goods -> createEvent(request, goods))
+                .filter(product -> product.getOrder().getStatus() == OrderStatus.COMPLETED)
+                .map(product -> createEvent(request, product))
                 .toList();
     }
 
