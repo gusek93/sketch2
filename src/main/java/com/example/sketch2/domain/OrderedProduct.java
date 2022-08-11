@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "SELL_GOODS")
-public class OrderedGoods {
+public class OrderedProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
     private OrderGoodsId id;
@@ -171,13 +171,17 @@ public class OrderedGoods {
     @JoinColumn(name = "SELL_NO")
     private Order order;
 
-    public OrderedGoods(final Long orderNo, final Long orderGoodsNo) {
+    public OrderedProduct(final Long orderNo, final Long orderGoodsNo) {
         id = new OrderGoodsId(orderNo, orderGoodsNo);
     }
 
     public Long getOrderNo() {
         if (null == id) throw new IllegalStateException("[OrderedGoods.id] hasn't set.");
         return id.orderNo;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return order.getStatus();
     }
 
     @Getter
