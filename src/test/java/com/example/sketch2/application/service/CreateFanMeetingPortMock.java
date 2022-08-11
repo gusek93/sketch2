@@ -11,11 +11,6 @@ public class CreateFanMeetingPortMock implements CreateFanMeetingPort {
     public boolean create_called;
 
     @Override
-    public void create(final FanMeeting onlineEvent) {
-        create_received_argument = onlineEvent;
-    }
-
-    @Override
     public void create(List<FanMeeting> onlineEvents) {
         create_called = true;
         create_received_argument_list = onlineEvents;
