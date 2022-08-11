@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @Table(name = "ONLINE_EVENT")
-public class OnlineEvent {
+public class FanMeeting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
-    private OnlineEventId id;
+    private FanMeetingId id;
 
     @Comment("유저 번호")
     @Column(name = "USER_NO")
@@ -57,15 +57,16 @@ public class OnlineEvent {
     @Column(name = "UPDATE_END_DT")
     private LocalDateTime modifiableDeadline;
 
-    public OnlineEvent(Long orderNo, long goodsNo) {
-        id = new OnlineEventId(orderNo, goodsNo);
+    public FanMeeting(Long orderNo, long goodsNo) {
+        id = new FanMeetingId(orderNo, goodsNo);
     }
 
     @Getter
-    @Setter
     @EqualsAndHashCode
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Embeddable
-    public static class OnlineEventId implements Serializable {
+    public static class FanMeetingId implements Serializable {
         @Serial
         private static final long serialVersionUID = 8398784728502679520L;
 
@@ -73,13 +74,6 @@ public class OnlineEvent {
         private Long sellNo;
 
         @Column(name = "GOODS_NO", nullable = false)
-        private Integer goodsNo;
-
-        public OnlineEventId(Long orderNo, long goodsNo) {
-        }
-
-        public OnlineEventId() {
-
-        }
+        private Long goodsNo;
     }
 }
