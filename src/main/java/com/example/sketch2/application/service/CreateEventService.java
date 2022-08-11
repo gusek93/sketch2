@@ -22,17 +22,20 @@ public class CreateEventService implements CreateEventUseCase {
     public void create(final CreateEventRequest request) {
         final List<EventGoodsOrder> orders = loadEventGoodsOrderOutPort.loadOrders();
         List<OnlineEvent> onlineEventList = new ArrayList<>();
-        for (int i = 0; i < orders.size(); i++) {
-            final EventGoodsOrder order = orders.get(i);
-            final OnlineEvent event = new OnlineEvent(
-                    order.getOrderNo(),
-                    request.getGoodsNo(),
-                    order.getOrderUserNo(),
-                    request.getEventEndAt(),
-                    request.getEventEndAt()
-            );
+        for (final EventGoodsOrder order : orders) {
+            final OnlineEvent event = createEvent(request, order);
             onlineEventList.add(event);
         }
         creatEventOutPort.create(onlineEventList);
+    }
+
+    private OnlineEvent createEvent(final CreateEventRequest request, final EventGoodsOrder order) {
+        return new OnlineEvent(
+                order.getOrderNo(),
+                request.getGoodsNo(),
+                order.getOrderUserNo(),
+                request.getEventEndAt(),
+                request.getEventEndAt()
+        );
     }
 }
