@@ -41,8 +41,8 @@ public class CreateFanMeetingService implements CreateFanMeetingUseCase {
         return onlineEvent;
     }
 
-    private void createEvents(List<FanMeeting> events) {
-        if (events.isEmpty()) return;
-        createFanMeetingPort.create(events);
+    private void createEvents(List<FanMeeting> fanMeetings) {
+        if (fanMeetings.isEmpty()) return;
+        createFanMeetingPort.create(fanMeetings);
     }
 }
