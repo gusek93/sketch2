@@ -28,7 +28,7 @@ public class CreateFanMeetingService implements CreateFanMeetingUseCase {
     private List<FanMeeting> mapToOnlineEvents(final CreateFanMeetingRequest request, final List<OrderedGoods> products) {
         return products
                 .stream()
-                .filter(product -> product.getOrder().getStatus() == OrderStatus.COMPLETED)
+                .filter(product -> OrderStatus.COMPLETED == product.getOrder().getStatus())
                 .map(product -> createEvent(request, product))
                 .toList();
     }
