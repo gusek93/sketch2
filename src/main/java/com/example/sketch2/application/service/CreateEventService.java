@@ -36,12 +36,10 @@ public class CreateEventService implements CreateEventUseCase {
     }
 
     private OnlineEvent createEvent(final CreateEventRequest request, final EventGoodsOrder order) {
-        return new OnlineEvent(
-                order.getOrderNo(),
-                request.getGoodsNo(),
-                order.getOrderUserNo(),
-                request.getEventEndAt(),
-                request.getEventEndAt()
-        );
+        final var onlineEvent = new OnlineEvent(order.getOrderNo(), request.getGoodsNo());
+        onlineEvent.setUserNo(order.getOrderUserNo());
+        onlineEvent.setEventEndAt(request.getEventEndAt());
+        onlineEvent.setModifiableDeadline(request.getEventEndAt());
+        return onlineEvent;
     }
 }

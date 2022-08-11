@@ -13,7 +13,7 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "SELL")
-public class SellEntity {
+public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EmbeddedId
     private SellId id;
