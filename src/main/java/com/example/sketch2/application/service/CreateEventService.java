@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CreateEventService implements CreateEventUseCase {
-
     private final CreateEventOutPort creatEventOutputPort;
     @Override
     public void create(CreateEventRequest request) {

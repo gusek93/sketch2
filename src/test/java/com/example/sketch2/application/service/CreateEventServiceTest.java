@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CreateEventServiceTest {
     private CreateEventOutPortMock createEventOutPort;
@@ -26,12 +25,16 @@ class CreateEventServiceTest {
 
         sut.create(request);
 
-        assertThat(createEventOutPort.create_received_argument).isEqualTo(new OnlineEvent(
+        assertThat(createEventOutPort.create_received_argument).isEqualTo(expected());
+    }
+
+    private OnlineEvent expected() {
+        return new OnlineEvent(
                 null,
                 1L,
                 null,
-                LocalDateTime.of(2022, 12,25,34,56),
-                LocalDateTime.of(2022, 12,25,34,56)
-        ));
+                LocalDateTime.of(2022, 12, 25, 34, 56),
+                LocalDateTime.of(2022, 12, 25, 34, 56)
+        );
     }
 }
