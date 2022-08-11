@@ -6,7 +6,7 @@ import com.example.sketch2.application.out.CreateFanMeetingPort;
 import com.example.sketch2.application.out.ReadOrderGoodsPort;
 import com.example.sketch2.domain.FanMeeting;
 import com.example.sketch2.domain.OrderStatus;
-import com.example.sketch2.domain.OrderedGoods;
+import com.example.sketch2.domain.OrderedProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,20 +20,20 @@ public class CreateFanMeetingService implements CreateFanMeetingUseCase {
 
     @Override
     public void create(final CreateFanMeetingRequest request) {
-        final List<OrderedGoods> goods = readOrderGoodsPort.listBy(request.getGoodsNo());
-        final List<FanMeeting> events = mapToOnlineEvents(request, goods);
-        createEvents(events);
+        final List<OrderedProduct> goods = readOrderGoodsPort.listBy(request.getGoodsNo());
+        final List<FanMeeting> fanMeetings = mapToFanMeetings(request, goods);
+        createEvents(fanMeetings);
     }
 
-    private List<FanMeeting> mapToOnlineEvents(final CreateFanMeetingRequest request, final List<OrderedGoods> products) {
+    private List<FanMeeting> mapToFanMeetings(final CreateFanMeetingRequest request, final List<OrderedProduct> products) {
         return products
                 .stream()
-                .filter(product -> OrderStatus.COMPLETED == product.getOrder().getStatus())
+                .filter(product -> OrderStatus.COMPLETED == product.getOrderStatus())
                 .map(product -> createEvent(request, product))
                 .toList();
     }
 
-    private FanMeeting createEvent(final CreateFanMeetingRequest request, final OrderedGoods goods) {
+    private FanMeeting createEvent(final CreateFanMeetingRequest request, final OrderedProduct goods) {
         final var onlineEvent = new FanMeeting(goods.getOrderNo(), request.getGoodsNo());
         onlineEvent.setUserNo(goods.getOrder().getUserNo());
         onlineEvent.setEventEndAt(request.getEventEndAt());
