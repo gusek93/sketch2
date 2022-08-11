@@ -18,6 +18,6 @@ public class CreateEventService implements CreateEventUseCase {
     }
 
     private OnlineEvent createOnlineEvent(CreateEventRequest request) {
-        return new OnlineEvent(null, (long) request.getGoodsNo(), null, request.getEventEndAt(), request.getEventEndAt());
+        return new OnlineEvent(null, request.getGoodsNo(), null, request.getEventEndAt(), request.getEventEndAt());
     }
 }
