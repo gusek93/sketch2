@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class OnlineEvent {
-    private final Long sellNo;
+    private final Long orderNo;
     private final Long goodsNo;
     private final Long userNo;
     private final LocalDateTime endAt;
