@@ -30,21 +30,12 @@ class CreateEventServiceTest {
     @DisplayName("EventGoodsOrder가 있는 경우 기대하는 대로 createEventOutPort create() 호출")
     void create_0() {
         final var request = CreateEventRequest.of(1, eventEndAt);
-        readOrderGoodsPort.listBy_will_return = List.of(orderedGoodsStub());
+        readOrderGoodsPort.listBy_will_return = orderedGoodsListStub();
 
         sut.create(request);
 
         assertThat(createEventPortMock.create_received_argument_list.toString())
                 .isEqualTo(List.of(expected()).toString());
-    }
-
-    private OrderedGoods orderedGoodsStub() {
-        final var orderedGoods = new OrderedGoods(100L, 1L);
-        final Order order = new Order();
-        order.setOrderNo(100L);
-        order.setUserNo(100L);
-        orderedGoods.setOrder(order);
-        return orderedGoods;
     }
 
     @Test
@@ -56,6 +47,19 @@ class CreateEventServiceTest {
         sut.create(request);
 
         assertThat(createEventPortMock.create_called).isFalse();
+    }
+
+    private List<OrderedGoods> orderedGoodsListStub() {
+        return List.of(createOrderedGoodsStub(100L));
+    }
+
+    private OrderedGoods createOrderedGoodsStub(final long orderNo) {
+        final var orderedGoods = new OrderedGoods(orderNo, 1L);
+        final Order order = new Order();
+        order.setOrderNo(orderNo);
+        order.setUserNo(1001L);
+        orderedGoods.setOrder(order);
+        return orderedGoods;
     }
 
     private OnlineEvent expected() {

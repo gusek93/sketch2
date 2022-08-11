@@ -1,12 +1,11 @@
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: local
   jpa:
     hibernate:
       ddl-auto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
     generate-ddl: false
     database-platform: org.hibernate.dialect.MariaDBDialect
   datasource:
@@ -16,7 +15,6 @@ spring:
       username: hmmall
       password: gkdlfn12
       maximum-pool-size: 10
-      driver-class-name: org.mariadb.jdbc.Driver
   sql:
     init:
       mode: never
