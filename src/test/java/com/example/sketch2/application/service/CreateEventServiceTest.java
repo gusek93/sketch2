@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CreateEventServiceTest {
+    private final LocalDateTime eventEndAt = LocalDateTime.of(2022, 12, 25, 12, 34, 56);
     private CreateEventOutPortMock createEventOutPort;
     private CreateEventService sut;
 
@@ -21,11 +22,12 @@ class CreateEventServiceTest {
 
     @Test
     void create() {
-        final var request = CreateEventRequest.of(1, "2022-12-25 12:34:56");
+        final var request = CreateEventRequest.of(1, eventEndAt);
 
         sut.create(request);
 
-        assertThat(createEventOutPort.create_received_argument).isEqualTo(expected());
+        assertThat(createEventOutPort.create_received_argument)
+                .isEqualTo(expected());
     }
 
     private OnlineEvent expected() {
@@ -33,8 +35,8 @@ class CreateEventServiceTest {
                 null,
                 1L,
                 null,
-                LocalDateTime.of(2022, 12, 25, 34, 56),
-                LocalDateTime.of(2022, 12, 25, 34, 56)
+                eventEndAt,
+                eventEndAt
         );
     }
 }

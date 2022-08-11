@@ -11,7 +11,7 @@ public class CreateEventRequest {
     private final int goodsNo;
     private final LocalDateTime eventEndAt;
 
-    public CreateEventRequest(int goodsNo, LocalDateTime eventEndAt) {
+    public CreateEventRequest(final int goodsNo, final LocalDateTime eventEndAt) {
         this.goodsNo = goodsNo;
         this.eventEndAt = eventEndAt;
     }

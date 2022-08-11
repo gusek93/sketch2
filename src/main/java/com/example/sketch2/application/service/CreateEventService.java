@@ -10,9 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CreateEventService implements CreateEventUseCase {
-    private final CreateEventOutPort creatEventOutputPort;
+    private final CreateEventOutPort creatEventOutPort;
+
     @Override
-    public void create(CreateEventRequest request) {
-        creatEventOutputPort.create(new OnlineEvent(null,(long) request.getGoodsNo(), null,request.getEventEndAt(),request.getEventEndAt()));
+    public void create(final CreateEventRequest request) {
+        creatEventOutPort.create(createOnlineEvent(request));
+    }
+
+    private OnlineEvent createOnlineEvent(CreateEventRequest request) {
+        return new OnlineEvent(null, (long) request.getGoodsNo(), null, request.getEventEndAt(), request.getEventEndAt());
     }
 }
